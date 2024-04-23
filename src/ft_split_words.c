@@ -1,6 +1,6 @@
 #include "miniRT.h"
 
-static size_t	count_words(char const *s, t_data *d)
+static size_t	count_words(char const *s)
 {
 	size_t	words;
 	size_t	new_word;
@@ -9,19 +9,19 @@ static size_t	count_words(char const *s, t_data *d)
 	new_word = 0;
 	while (*s)
 	{
-		if ((*s != d->c1 || *s != d->c2) && !new_word)
+		if ((*s != ' ' || *s != '\t') && !new_word)
 		{
 			new_word = 1;
 			words++;
 		}
-		else if (*s == d->c1 || *s == d->c2)
+		else if (*s == ' ' || *s == '\t')
 			new_word = 0;
 		s++;
 	}
 	return (words);
 }
 
-static char	**calloc_cpy_word(char const *s, t_data *d, char **split,
+static char	**calloc_cpy_word(char const *s, char **split,
 			size_t s_len)
 {
 	size_t	i;
@@ -33,7 +33,7 @@ static char	**calloc_cpy_word(char const *s, t_data *d, char **split,
 	word_len = 0;
 	while (i < s_len + 1 && s_len > 0)
 	{
-		if (s[i] == d->c1 || s[i] == d->c2 || !s[i])
+		if (s[i] == ' ' || s[i] == '\t' || !s[i])
 		{
 			if (word_len > 0)
 			{
@@ -51,7 +51,8 @@ static char	**calloc_cpy_word(char const *s, t_data *d, char **split,
 	return (split);
 }
 
-char	**ft_split2(char const *s, t_data *d)
+// Splits the words in a string separated by spaces and tabs
+char	**ft_split_words(char const *s)
 {
 	size_t	words;
 	size_t	s_len;
@@ -60,11 +61,11 @@ char	**ft_split2(char const *s, t_data *d)
 	if (!s)
 		return (NULL);
 	s_len = ft_strlen(s);
-	words = count_words(s, d);
+	words = count_words(s);
 	split = (char **)ft_calloc(sizeof(char *), words + 1);
 	if (!split)
 		return (NULL);
-	split = calloc_cpy_word(s, d, split, s_len);
+	split = calloc_cpy_word(s, split, s_len);
 	split[words] = NULL;
 	return (split);
 }

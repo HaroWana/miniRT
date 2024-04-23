@@ -51,12 +51,14 @@ t_elem	*elem_init(void)
 	return (elem);
 }
 
+extern	t_data	d;
 t_vec	get_coor(char **split)
 {
 	t_vec	coor;
 
 	if (split_count(split) != 3)
 		ft_error("Error\nInvalid coordinates\n");
+	check_pos(&d, split);
 	coor.x = ft_atof(split[0]);
 	coor.y = ft_atof(split[1]);
 	coor.z = ft_atof(split[2]);

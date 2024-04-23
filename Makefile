@@ -11,7 +11,7 @@ SRC = ./src/main.c ./src/check.c ./src/load.c ./src/utils.c \
 		./src/rays/ray.c ./src/hooks.c ./src/exit.c ./src/utils2.c \
 		./src/shapes/shapes.c ./src/vectors/vector.c ./src/color.c \
 		./src/vectors/vector2.c ./src/vectors/vector3.c \
-		./src/vectors/vector_operations.c ./src/hit.c ./src/ft_split2.c
+		./src/vectors/vector_operations.c ./src/hit.c ./src/ft_split_words.c
 
 OBJ = ${SRC:.c=.o}
 

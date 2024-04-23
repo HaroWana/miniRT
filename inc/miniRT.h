@@ -46,22 +46,22 @@ void	init_rt(t_env e, t_data d);
 void	load_data(t_data *d, char *filename);
 
 // amb.c
-void	amb(char *buf, t_data *d);
+void	amb(char **split, t_data *d);
 
 // cam.c
-void	cam(char *buf, t_data *d);
+void	cam(char **split, t_data *d);
 
 // lum.c
-void	lum(char *buf, t_data *d);
+void	lum(char **split, t_data *d);
 
 // spher.c
-void	sp(char *buf, t_data *d);
+void	sp(char **split, t_data *d);
 
 // plan.c
-void	pl(char *buf, t_data *d);
+void	pl(char **split, t_data *d);
 
 // cyl.c
-void	cyl(char *buf, t_data *d);
+void	cyl(char **split, t_data *d);
 
 // cmpt.c
 void	free_all(char **tmp, char **tmp_pos, char **tmp_axe, char **tmpcolor);
@@ -80,9 +80,9 @@ t_vec	get_coor(char **split);
 float	sqr(float f);
 int		get_color(char **split);
 
-// ft_split2.c
+// ft_split_words.c
 
-char	**ft_split2(char const *s, t_data *d);
+char	**ft_split_words(char const *s);
 
 // exit.c
 int		close_hook(t_data *d, int code);
