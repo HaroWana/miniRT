@@ -1,5 +1,38 @@
 #include "miniRT.h"
 
+extern t_data 	d;
+void	clean_up()
+{
+	t_elem	*tmp;
+
+	while (d.shapes.spheres)
+	{
+		tmp = d.shapes.spheres;
+		d.shapes.spheres = d.shapes.spheres->next;
+		free(tmp);
+		tmp = NULL;
+	}
+	while (d.shapes.planes)
+	{
+		tmp = d.shapes.planes;
+		d.shapes.planes = d.shapes.planes->next;
+		free(tmp);
+		tmp = NULL;
+	}
+	while (d.shapes.cylindres)
+	{
+		tmp = d.shapes.cylindres;
+		d.shapes.cylindres = d.shapes.cylindres->next;
+		free(tmp);
+		tmp = NULL;
+	}
+	if (d.img)
+	{
+		free(d.img);
+		d.img = NULL;
+	}
+}
+
 void	ft_error(char *str)
 {
 	printf("%s", str);

@@ -25,6 +25,7 @@ int	main(int ac, char **av)
 	load_data(&d, av[1]);
 	ray_trace(&d);
 	mlx_loops(&d);
+	clean_up();
 	close_hook(&d, 0);
 	return (0);
 }

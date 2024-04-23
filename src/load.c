@@ -3,6 +3,7 @@
 static void	load_data2(char *buf, t_data *d)
 {
 	char	**split;
+	// int		ret = 0;
 	split = ft_split_words(buf);
 
 	if (ft_strncmp(split[0], "A", 1) == 0 && ft_strlen(split[0]) == 1)
@@ -24,7 +25,14 @@ static void	load_data2(char *buf, t_data *d)
 		ft_arr_freer(split);
 		ft_error("Error: Invalid data\n");
 	}
+
 	ft_arr_freer(split);
+	// if (ret)
+	// {
+	// 	error_message(ret);
+	// 	clean_up();
+	// 	exit(EXIT_FAILURE);
+	// }
 }
 
 void	load_data(t_data *d, char *filename)

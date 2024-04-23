@@ -86,6 +86,8 @@ char	**ft_split_words(char const *s);
 
 // exit.c
 int		close_hook(t_data *d, int code);
+void	clean_up();
+
 
 // hooks.c
 void	keyhook(mlx_key_data_t keydata, void *param);
