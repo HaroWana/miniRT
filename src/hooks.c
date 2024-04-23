@@ -1,13 +1,15 @@
 #include "miniRT.h"
-
+// d handling is to be reworked globally
 void	keyhook(mlx_key_data_t keydata, void *param)
 {
 	t_data	*d;
 
 	d = (t_data *)param;
 	if (keydata.key == MLX_KEY_ESCAPE)
+	{
+		clean_up();
 		close_hook(d, 0);
-	return ;
+	}
 }
 
 void	expose_img(t_data *d)
