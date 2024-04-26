@@ -1,6 +1,7 @@
 #include "miniRT.h"
 
 extern t_data 	d;
+
 void	clean_up()
 {
 	t_elem	*tmp;
@@ -31,12 +32,8 @@ void	clean_up()
 		free(d.img);
 		d.img = NULL;
 	}
-}
-
-void	ft_error(char *str)
-{
-	printf("%s", str);
-	exit(EXIT_FAILURE);
+	if (d.env.mlx)
+		mlx_terminate(d.env.mlx);
 }
 
 static void	free_strs(char **tmp, char **tmp_pos, char **tmp_axe,
@@ -87,7 +84,7 @@ void	free_all(char **tmp, char **tmp_pos, char **tmp_axe, char **tmpcolor)
 	}
 }
 
-int	close_hook(t_data *d, int code)
+int	close_hook(t_data *d, int code) // necessary ?
 {
 	(void)d;
 	if (code == 0)

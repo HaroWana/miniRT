@@ -4,7 +4,7 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
 RM = rm -f
 
-SRC = ./src/main.c ./src/check.c ./src/load.c ./src/utils.c \
+SRC = ./src/main.c ./src/check.c ./src/load.c ./src/utils.c ./src/error.c \
 		./src/amb.c ./src/cameras/camera.c ./src/lum.c ./src/spher.c ./src/cyl.c \
 		./src/plan.c ./src/cameras/camera2.c ./src/image/image.c \
 		./src/intersections/intersections.c ./src/intersections/intersections2.c \

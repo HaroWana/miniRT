@@ -1,14 +1,14 @@
 #include "miniRT.h"
 
-int	rgbinrange(int nb)
+bool	rgbinrange(int nb)
 {
 	if (nb >= 0 && nb <= 255)
-		return (0);
+		return (true);
 	else
-		return (1);
+		return (false);
 }
 
-void	vectinrange(t_data *d, char **str)
+bool	vectinrange(char **str)
 {
 	int	i;
 
@@ -16,28 +16,45 @@ void	vectinrange(t_data *d, char **str)
 	while (str[i])
 	{
 		if (ft_atof(str[i]) < -1 || ft_atof(str[i]) > 1 || !ft_isfloat(str[i]))
-		{
-			close(d->fd);
-			ft_error("Error\nVector non-numerical or out of range\n");
-		}
+			return (false);
 		i++;
 	}
+	return (true);
 }
 
-int	ratioinrange(char *ratio)
+bool	ratioinrange(char *ratio)
 {
 	if (ft_atof(ratio) >= 0 && ft_atof(ratio) <= 1)
-		return (0);
+		return (true);
 	else
-		return (1);
+		return (false);
 }
 
-int	fovinrange(int nb)
+bool	fovinrange(int nb)
 {
 	if (nb >= 0 && nb <= 180)
-		return (0);
+		return (true);
 	else
-		return (1);
+		return (false);
+}
+
+bool	valid_pos(char **pos)
+{
+	if (ft_isfloat(pos[0]) == false || ft_isfloat(pos[1]) == false
+		|| ft_isfloat(pos[2]) == false)
+	{
+		return (false);
+	}
+	return (true);
+}
+
+bool	valid_radius(char *radius)
+{
+	if (ft_isfloat(radius) == false || ft_atof(radius) < 0)
+	{
+		return (false);
+	}
+	return (true);
 }
 
 int	split_count(char **split)

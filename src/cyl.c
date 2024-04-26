@@ -1,33 +1,57 @@
 #include "miniRT.h"
 
-void	cyl(char **buf, t_data *d)
+extern t_data	d;
+
+int	cyl(char **buf)
 {
 	t_elem	*cy;
 	char	**tmp_pos;
 	char	**tmp_axe;
-	char	**tmpcolor;
+	char	**tmp_color;
 
-	cy = elem_init();
+	// Allocating memory and checking parameter count
+	if ((cy = elem_init()) == NULL)
+		return (9);
 	if (split_count(buf) != 6)
-		ft_error("Error\nInvalid cylinder data\n");
+		return (2);
 
+	// Verifying and assigning Cylindre position
 	tmp_pos = ft_split(buf[1], ',');
-	check_pos(d, tmp_pos);
+	if (!valid_pos(tmp_pos))
+	{
+		ft_arr_freer(tmp_pos);
+		return (5);
+	}
 	cy->pos = get_coor(tmp_pos);
 
+	// Verifying and assigning Cylindre	direction
 	tmp_axe = ft_split(buf[2], ',');
-	vectinrange(d, tmp_axe);
+	if (!vectinrange(tmp_axe))
+	{
+		free_all(tmp_pos, tmp_axe, NULL, NULL);
+		return (8);
+	}
 	cy->axe = normalized(get_coor(tmp_axe));
 
-	check_radius(d, buf[3]);
+	// Verifying and assigning Cylindre height and radius
+	if (!valid_radius(buf[3]) || !valid_radius(buf[4]))
+	{
+		free_all(tmp_pos, tmp_axe, NULL, NULL);
+		return (6);
+	}
 	cy->radius = ft_atof(buf[3]) / 2;
-
-	check_radius(d, buf[4]);
 	cy->height = ft_atof(buf[4]);
 
-	tmpcolor = ft_split(buf[5], ',');
-	cy->rgb = get_color(tmpcolor);
+	// Verifying and assigning Cylindre color
+	tmp_color = ft_split(buf[5], ',');
+	cy->rgb = get_color(tmp_color);
+	if (cy->rgb < 0)
+	{
+		free_all(tmp_pos, tmp_axe, tmp_color, NULL);
+		return (4);
+	}
 
-	free_all(tmp_pos, tmp_axe, tmpcolor, NULL);
-	shapes_addback(&d->shapes.cylindres, cy, &d->shapes.cyl_nb);
+	free_all(tmp_pos, tmp_axe, tmp_color, NULL);
+	shapes_addback(&d.shapes.cylindres, cy, &d.shapes.cyl_nb);
+	return (0);
 }

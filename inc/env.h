@@ -4,7 +4,7 @@
 typedef struct s_env
 {
 	void		*mlx;
-	void		*win;
+	// void		*win;
 	float		size_x;
 	float		size_y;
 }				t_env;

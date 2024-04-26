@@ -13,15 +13,14 @@ int	get_color(char **split)
 
 	i = 0;
 	res = 0;
-	if (split_count(split) != 3)
-		ft_error("Error\nRGB values are invalid\n");
-	while (i < 3)
+	
+	while (split[i])
 	{
 		if (!ft_isint(split[i]))
-			ft_error("Error\nRGB value is invalid\n");
+			return (-1);
 		color = ft_atoi(split[i]);
 		if (!ft_isrgb(color))
-			ft_error("Error\nRGB value not in range\n");
+			return (-1);
 		res = (res << 8) | color;
 		i++;
 	}

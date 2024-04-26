@@ -46,7 +46,7 @@ t_elem	*elem_init(void)
 
 	elem = malloc(sizeof(t_elem));
 	if (!elem)
-		ft_error("Error\nElem Data Struct Init Error\n");
+		return (NULL);
 	ft_bzero(elem, sizeof(t_elem));
 	return (elem);
 }
@@ -56,9 +56,6 @@ t_vec	get_coor(char **split)
 {
 	t_vec	coor;
 
-	if (split_count(split) != 3)
-		ft_error("Error\nInvalid coordinates\n");
-	check_pos(&d, split);
 	coor.x = ft_atof(split[0]);
 	coor.y = ft_atof(split[1]);
 	coor.z = ft_atof(split[2]);

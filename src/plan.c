@@ -1,29 +1,47 @@
 #include "miniRT.h"
 
-void	pl(char **buf, t_data *d)
+extern t_data	d;
+
+int	pl(char **buf)
 {
 	t_elem	*pl;
 	char	**tmp_pos;
 	char	**tmp_axe;
 	char	**tmp_color;
 
-	pl = elem_init();
+	// Allocating memory and checking parameter count
+	if ((pl = elem_init()) == NULL)
+		return (9);
 	if (split_count(buf) != 4)
-		ft_error("Error\nInvalid plane data\n");
+		return (2);
 	
-	// Weird
+	// Verifying and assigning Plane position
 	tmp_pos = ft_split(buf[1], ',');
-	check_pos(d, tmp_pos);
+	if (!valid_pos(tmp_pos))
+	{
+		ft_arr_freer(tmp_pos);
+		return (5);
+	}
 	pl->pos = get_coor(tmp_pos);
 
+	// Verifying and assigning Plane normal vector
 	tmp_axe = ft_split(buf[2], ',');
-	vectinrange(d, tmp_axe);
-
+	if (!vectinrange(tmp_axe))
+	{
+		free_all(tmp_pos, tmp_axe, NULL, NULL);
+	}
 	pl->normal = get_coor(tmp_axe);
 	
+	// Verifying and assigning Plane color
 	tmp_color = ft_split(buf[3], ',');
 	pl->rgb = get_color(tmp_color);
+	if (pl->rgb < 0)
+	{
+		free_all(tmp_pos, tmp_axe, tmp_color, NULL);
+		return (4);
+	}
 
 	free_all(tmp_pos, tmp_axe, tmp_color, NULL);
-	shapes_addback(&d->shapes.planes, pl, &d->shapes.plane_nb);
+	shapes_addback(&d.shapes.planes, pl, &d.shapes.plane_nb);
+	return (0);
 }

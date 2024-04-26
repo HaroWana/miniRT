@@ -1,21 +1,31 @@
 #include "miniRT.h"
 
-void	amb(char **split, t_data *d)
+extern t_data	d;
+
+int	amb(char **split)
 {
 	t_amb	a;
-	char	**tmpcolor;
+	char	**tmp_color;
 
 	if (split_count(split) != 3)
-		ft_error("Error\nInvalid ambiant light data\n");
+		return (2);
 	
+	// Verifying and assigning Ambiant Light intensity ratio
 	if (!ft_isfloat(split[1]) || ratioinrange(split[1]))
-		ft_error("Error\nInvalid ratio value for ambiant light\n");
+		return (3);
 	a.ratio = ft_atof(split[1]);
 
-	tmpcolor = ft_split(split[2], ',');
-	a.rgb = get_color(tmpcolor);
+	// Verifying and assigning Ambiant Light color;
+	tmp_color = ft_split(split[2], ',');
+	a.rgb = get_color(tmp_color);
+	if (split_count(tmp_color) != 3 || a.rgb < 0)
+	{
+		ft_arr_freer(tmp_color);
+		return (4);
+	}
 	
-	d->amb = a;
-	d->alight_count++;
-	ft_arr_freer(tmpcolor);
+	d.amb = a;
+	d.alight_count++;
+	ft_arr_freer(tmp_color);
+	return (0);
 }

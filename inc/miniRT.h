@@ -1,6 +1,8 @@
 #ifndef MINIRT_H
 # define MINIRT_H
 
+# define STDERR 2
+
 # include "../MLX42/include/MLX42/MLX42.h"
 # include <math.h>
 # include <stdio.h>
@@ -27,41 +29,41 @@
 
 // main.c
 int		main(int ac, char **av);
-void	ft_error(char *str);
+void	ft_error(int ret, char *str);
 void	keyhook(mlx_key_data_t keydata, void *param);
 
 // check.c
-int		rgbinrange(int nb);
-void	vectinrange(t_data *d, char **str);
-int		ratioinrange(char *ratio);
-int		fovinrange(int nb);
-void	check_pos(t_data *d, char **pos);
-void	check_radius(t_data *d, char *radius);
+bool	rgbinrange(int nb);
+bool	vectinrange(char **str);
+bool	ratioinrange(char *ratio);
+bool	fovinrange(int nb);
+bool	valid_pos(char **pos);
+bool	valid_radius(char *radius);
 int		split_count(char **split);
 
 // init.c
 void	init_rt(t_env e, t_data d);
 
 // load.c
-void	load_data(t_data *d, char *filename);
+void	load_data(char *filename);
 
 // amb.c
-void	amb(char **split, t_data *d);
+int	amb(char **split);
 
 // cam.c
-void	cam(char **split, t_data *d);
+int	cam(char **split);
 
 // lum.c
-void	lum(char **split, t_data *d);
+int	lum(char **split);
 
 // spher.c
-void	sp(char **split, t_data *d);
+int	sp(char **split);
 
 // plan.c
-void	pl(char **split, t_data *d);
+int	pl(char **split);
 
 // cyl.c
-void	cyl(char **split, t_data *d);
+int	cyl(char **split);
 
 // cmpt.c
 void	free_all(char **tmp, char **tmp_pos, char **tmp_axe, char **tmpcolor);

@@ -17,7 +17,7 @@ void	expose_img(t_data *d)
 	if (mlx_image_to_window(d->env.mlx, d->img, 0, 0) < 0)
 	{
 		mlx_close_window(d->env.mlx);
-		ft_error("Error\nimpossible to create image\n");
+		ft_error(0, "Impossible to create image");
 	}
 }
 
