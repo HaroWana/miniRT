@@ -27,11 +27,6 @@ void	clean_up()
 		free(tmp);
 		tmp = NULL;
 	}
-	// if (d.img)
-	// {
-	// 	free(d.img);
-	// 	d.img = NULL;
-	// }
 	if (d.env.mlx)
 		mlx_terminate(d.env.mlx);
 }
