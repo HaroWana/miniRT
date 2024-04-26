@@ -11,18 +11,18 @@ int	amb(char **split)
 		return (2);
 	
 	// Verifying and assigning Ambiant Light intensity ratio
-	if (!ft_isfloat(split[1]) || ratioinrange(split[1]))
+	if (!ft_isfloat(split[1]) || !ratioinrange(split[1]))
 		return (3);
 	a.ratio = ft_atof(split[1]);
 
 	// Verifying and assigning Ambiant Light color;
 	tmp_color = ft_split(split[2], ',');
-	a.rgb = get_color(tmp_color);
-	if (split_count(tmp_color) != 3 || a.rgb < 0)
+	if (!valid_rgb(tmp_color))
 	{
 		ft_arr_freer(tmp_color);
 		return (4);
 	}
+	a.rgb = get_color(tmp_color);	
 	
 	d.amb = a;
 	d.alight_count++;

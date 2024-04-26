@@ -40,8 +40,8 @@ bool	fovinrange(int nb)
 
 bool	valid_pos(char **pos)
 {
-	if (ft_isfloat(pos[0]) == false || ft_isfloat(pos[1]) == false
-		|| ft_isfloat(pos[2]) == false)
+	if (ft_isfloat(pos[0]) == false || ft_isfloat(pos[1]) == false || ft_isfloat(pos[2]) == false
+		|| split_count(pos) != 3)
 	{
 		return (false);
 	}
@@ -53,6 +53,19 @@ bool	valid_radius(char *radius)
 	if (ft_isfloat(radius) == false || ft_atof(radius) < 0)
 	{
 		return (false);
+	}
+	return (true);
+}
+
+bool	valid_rgb(char **rgb)
+{
+	if (split_count(rgb) != 3)
+		return (false);
+	
+	for (int i = 0; rgb[i]; i++)
+	{
+		if (!ft_isint(rgb[i]) || !ft_isrgb(ft_atoi(rgb[i])))
+			return (false);
 	}
 	return (true);
 }

@@ -13,7 +13,7 @@ int	lum(char **buf)
 
 	// Verifying and assigning Light source position
 	tmp_pos = ft_split(buf[1], ',');
-	if (!valid_pos(tmp_pos) || split_count(tmp_pos) != 3)
+	if (!valid_pos(tmp_pos))
 	{
 		ft_arr_freer(tmp_pos);
 		return (5);
@@ -21,7 +21,7 @@ int	lum(char **buf)
 	l.pos = get_coor(tmp_pos);
 
 	// Verifying and assigning Light source intensity ratio
-	if (!ft_isfloat(buf[2]) || ratioinrange(buf[2]))
+	if (!ft_isfloat(buf[2]) || !ratioinrange(buf[2]))
 	{
 		ft_arr_freer(tmp_pos);
 		return (3);
@@ -30,9 +30,12 @@ int	lum(char **buf)
 
 	// Verifying and assigning Light source color
 	tmp_color = ft_split(buf[3], ',');
-	l.rgb = get_color(tmp_color);
-	if (split_count(tmp_color) != 3 || l.rgb < 0)
+	if (!valid_rgb(tmp_color))
+	{
+		free_all(tmp_pos, tmp_color, NULL, NULL);
 		return (4);
+	}
+	l.rgb = get_color(tmp_color);
 
 	d.lum = l;
 	d.light_count++;

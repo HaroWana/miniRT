@@ -1,5 +1,16 @@
 #include "miniRT.h"
 
+#define BYTE_TO_BINARY_PATTERN "%c%c%c%c%c%c%c%c"
+#define BYTE_TO_BINARY(byte) \
+	((byte) & 0x80 ? '1' : '0'), \
+	((byte) & 0x40 ? '1' : '0'), \
+	((byte) & 0x20 ? '1' : '0'), \
+	((byte) & 0x10 ? '1' : '0'), \
+	((byte) & 0x08 ? '1' : '0'), \
+	((byte) & 0x04 ? '1' : '0'), \
+	((byte) & 0x02 ? '1' : '0'), \
+	((byte) & 0x01 ? '1' : '0')
+
 float	sqr(float f)
 {
 	return (f * f);
@@ -7,20 +18,13 @@ float	sqr(float f)
 
 int	get_color(char **split)
 {
-	int	res;
 	int	color;
-	int	i;
+	int	res = 0;
+	int	i = 0;
 
-	i = 0;
-	res = 0;
-	
 	while (split[i])
 	{
-		if (!ft_isint(split[i]))
-			return (-1);
 		color = ft_atoi(split[i]);
-		if (!ft_isrgb(color))
-			return (-1);
 		res = (res << 8) | color;
 		i++;
 	}

@@ -33,12 +33,12 @@ int	sp(char **buf)
 
 	// Verifying and assigning Sphere color
 	tmp_color = ft_split(buf[3], ',');
-	sp->rgb = get_color(tmp_color);
-	if (sp->rgb < 0)
+	if (!valid_rgb(tmp_color))
 	{
 		free_all(tmp_pos, tmp_color, NULL, NULL);
 		return (4);
 	}
+	sp->rgb = get_color(tmp_color);	
 
 	free_all(tmp_pos, tmp_color, NULL, NULL);
 	shapes_addback(&d.shapes.spheres, sp, &d.shapes.sphere_nb);

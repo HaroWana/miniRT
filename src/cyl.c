@@ -44,12 +44,12 @@ int	cyl(char **buf)
 
 	// Verifying and assigning Cylindre color
 	tmp_color = ft_split(buf[5], ',');
-	cy->rgb = get_color(tmp_color);
-	if (cy->rgb < 0)
+	if (!valid_rgb(tmp_color))
 	{
 		free_all(tmp_pos, tmp_axe, tmp_color, NULL);
 		return (4);
 	}
+	cy->rgb = get_color(tmp_color);	
 
 	free_all(tmp_pos, tmp_axe, tmp_color, NULL);
 	shapes_addback(&d.shapes.cylindres, cy, &d.shapes.cyl_nb);

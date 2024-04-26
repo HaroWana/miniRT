@@ -34,12 +34,12 @@ int	pl(char **buf)
 	
 	// Verifying and assigning Plane color
 	tmp_color = ft_split(buf[3], ',');
-	pl->rgb = get_color(tmp_color);
-	if (pl->rgb < 0)
+	if (!valid_rgb(tmp_color))
 	{
 		free_all(tmp_pos, tmp_axe, tmp_color, NULL);
 		return (4);
 	}
+	pl->rgb = get_color(tmp_color);	
 
 	free_all(tmp_pos, tmp_axe, tmp_color, NULL);
 	shapes_addback(&d.shapes.planes, pl, &d.shapes.plane_nb);

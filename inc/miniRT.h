@@ -39,6 +39,7 @@ bool	ratioinrange(char *ratio);
 bool	fovinrange(int nb);
 bool	valid_pos(char **pos);
 bool	valid_radius(char *radius);
+bool	valid_rgb(char **rgb);
 int		split_count(char **split);
 
 // init.c
