@@ -3,7 +3,7 @@
 
 # define STDERR 2
 
-# include "../MLX42/include/MLX42/MLX42.h"
+# include <GLFW/glfw3.h>
 # include <math.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -30,7 +30,6 @@
 // main.c
 int		main(int ac, char **av);
 void	ft_error(int ret, char *str);
-void	keyhook(mlx_key_data_t keydata, void *param);
 
 // check.c
 bool	rgbinrange(int nb);
@@ -93,11 +92,9 @@ void	clean_up();
 
 
 // hooks.c
-void	keyhook(mlx_key_data_t keydata, void *param);
-void	expose_img(t_data *d);
-void	mlx_loops(t_data *d);
-
-// New color functions -> will eventually replace color.c and color2.c
+// void	keyhook(mlx_key_data_t keydata, void *param);
+// void	expose_img(t_data *d);
+// void	mlx_loops(t_data *d);
 
 int		get_color(char **split);
 int		color_scale(int colour, float f);

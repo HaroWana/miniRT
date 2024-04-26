@@ -2,7 +2,7 @@
 
 static void	error_message(int err, char *buf)
 {
-	fprintf(stderr, "Error: ");
+	fprintf(stderr, "(ERROR) ");
 	switch (err)
 	{
 		case (1):

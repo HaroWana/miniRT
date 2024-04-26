@@ -1,5 +1,7 @@
 #include "miniRT.h"
 
+extern t_data	d;
+
 static bool	in_shadow(t_data *d, t_inter inter, t_vec light)
 {
 	t_inter	shadow;
@@ -25,6 +27,20 @@ static uint32_t	light_calc(t_data *d, t_inter inter)
 	return (color);
 }
 
+static void	drawPixel(int x, int y, uint32_t pixel)
+{	
+	(void)pixel;
+	int	i = (y * d.env.size_x + x) * 3;
+
+	// d.img[i] = ((pixel >> 24) & 0xFF);
+	// d.img[i + 1] = ((pixel >> 16) & 0xFF);
+	// d.img[i + 2] = ((pixel >> 8) & 0xFF);
+	d.img[i] = (unsigned char)0;
+	d.img[i + 1] = (unsigned char)0;
+	d.img[i + 2] = (unsigned char)0;
+	// printf("%u %u %u\n", d.img[i], d.img[i + 1], d.img[i + 2]);
+}
+
 void	ray_trace(t_data *d)
 {
 	int			x;
@@ -32,21 +48,22 @@ void	ray_trace(t_data *d)
 	t_inter		inter;
 	t_ray		ray;
 
-	x = -1;
-	y = -1;
-	while ((uint32_t)++x < d->img->width)
+	x = 0;
+	y = 0;
+	printf("%u %u\n", d->env.size_x, d->env.size_y);
+	while ((uint32_t)++x < d->env.size_x)
 	{
-		while ((uint32_t)++y < d->img->height)
+		while ((uint32_t)++y < d->env.size_y)
 		{
-			ray = make_ray(&d->cam, vec2_init(((2.0f * x) / d->img->width)
-						- 1.0f, ((-2.0f * y) / d->img->height) + 1.0f));
+			ray = make_ray(&d->cam, vec2_init(((2.0f * x) / d->env.size_x)
+						- 1.0f, ((-2.0f * y) / d->env.size_y) + 1.0f));
 			inter = inter_cpy_ray(&ray);
 			if (shapes_intersect(&d->shapes, &inter))
-				mlx_put_pixel(d->img, x, y, light_calc(d, inter));
+				drawPixel(x, y, light_calc(d, inter));
 			else
-				mlx_put_pixel(d->img, x, y, 255);
+				drawPixel(x, y, 0);
 		}
 		y = -1;
 	}
-	expose_img(d);
+	// expose_img(d);
 }

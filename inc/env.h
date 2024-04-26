@@ -3,10 +3,10 @@
 
 typedef struct s_env
 {
-	void		*mlx;
-	// void		*win;
-	float		size_x;
-	float		size_y;
+	// void		*mlx;
+	GLFWwindow	*win;
+	uint32_t	size_x;
+	uint32_t	size_y;
 }				t_env;
 
 #endif

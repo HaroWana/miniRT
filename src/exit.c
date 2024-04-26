@@ -27,8 +27,8 @@ void	clean_up()
 		free(tmp);
 		tmp = NULL;
 	}
-	if (d.env.mlx)
-		mlx_terminate(d.env.mlx);
+	// if (d.env.mlx)
+	// 	mlx_terminate(d.env.mlx);
 }
 
 static void	free_strs(char **tmp, char **tmp_pos, char **tmp_axe,
