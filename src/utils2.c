@@ -31,3 +31,14 @@ int	get_color(char **split)
 	res = (res << 8) | 255;
 	return (res);
 }
+
+int numDigits(int num)
+{
+    int digits = 0;
+    if (num < 0) digits = 1; // remove this line if '-' counts as a digit
+    while (num) {
+        num /= 10;
+        digits++;
+    }
+    return digits;
+}

@@ -8,6 +8,6 @@ typedef struct s_data	t_data;
 // void		save_img(mlx_image_t *img, char *filename);
 
 // void		ray_trace(void *param);
-void		ray_trace(t_data *d);
+void		ray_trace();
 
 #endif

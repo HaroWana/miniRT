@@ -20,7 +20,7 @@ all: ${NAME}
 ${NAME}: ${OBJ}
 	${MAKE} -sC ./libft
 	mv ./libft/libft.a ./
-	${CC} $(CFLAGS) ${OBJ} libft.a -lglfw -lGL -Iinclude -ldl -pthread -L/Users/${USER}/.brew/opt/glfw/lib/ -lm -o ${NAME}
+	${CC} $(CFLAGS) ${OBJ} libft.a -lglfw -lGL -lglut -Iinclude -ldl -pthread -L/Users/${USER}/.brew/opt/glfw/lib/ -lm -o ${NAME}
 
 %.o: %.c
 	$(CC) $(CFLAGS)  -I./inc -I/Users/${USER}/.brew/opt/glfw/include -I/Users/${USER}/goinfre/.brew/opt/glfw/include -c $< -o $@

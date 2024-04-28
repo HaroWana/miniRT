@@ -3,7 +3,11 @@
 
 # define STDERR 2
 
-# include <GLFW/glfw3.h>
+// # include <GL/gl.h>
+// # include <GL/glu.h>
+// # include <GLFW/glfw3.h>
+# include <GL/glut.h>
+
 # include <math.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -76,6 +80,7 @@ bool	ft_isfloat(const char *str);
 void	shapes_addback(t_elem **lst, t_elem *new, int *qty);
 t_elem	*elem_init(void);
 t_vec	get_coor(char **split);
+int		numDigits(int num);
 
 // utils2.c
 
@@ -105,5 +110,8 @@ int		color_comp(t_lum *light, t_inter hit);
 bool	hit_sp(t_inter *inter, t_elem *elem);
 bool	hit_cy(t_inter *inter, t_elem *elem);
 bool	hit_pl(t_inter *inter, t_elem *elem);
+
+
+char	*canvas_to_ppm();
 
 #endif

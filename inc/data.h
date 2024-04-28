@@ -4,7 +4,7 @@
 typedef struct s_data
 {
 	int			fd;
-	unsigned char	*img;
+	int			*img;
 	t_cam		cam;
 	t_shape		shapes;
 	t_amb		amb;
