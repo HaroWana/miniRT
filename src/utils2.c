@@ -16,10 +16,10 @@ float	sqr(float f)
 	return (f * f);
 }
 
-int	get_color(char **split)
+unsigned int	get_color(char **split)
 {
-	int	color;
-	int	res = 0;
+	unsigned int	color;
+	unsigned int	res = 0;
 	int	i = 0;
 
 	while (split[i])
@@ -35,7 +35,7 @@ int	get_color(char **split)
 int numDigits(int num)
 {
     int digits = 0;
-    if (num < 0) digits = 1; // remove this line if '-' counts as a digit
+    if (num < 0 || num == 0) digits = 1; // remove this line if '-' counts as a digit
     while (num) {
         num /= 10;
         digits++;

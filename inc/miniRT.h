@@ -85,7 +85,6 @@ int		numDigits(int num);
 // utils2.c
 
 float	sqr(float f);
-int		get_color(char **split);
 
 // ft_split_words.c
 

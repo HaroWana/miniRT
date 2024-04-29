@@ -16,9 +16,9 @@ static bool	in_shadow(t_data *d, t_inter inter, t_vec light)
 	return (shapes_intersect(&d->shapes, &shadow));
 }
 
-static uint32_t	light_calc(t_data *d, t_inter inter)
+static int	light_calc(t_data *d, t_inter inter)
 {
-	uint32_t	color;
+	int	color;
 	bool		visible;
 
 	color = color_prod(inter.rgb, color_scale(d->amb.rgb, d->amb.ratio));
@@ -27,19 +27,19 @@ static uint32_t	light_calc(t_data *d, t_inter inter)
 	return (color);
 }
 
-static void	drawPixel(int x, int y, uint32_t pixel)
+static void	drawPixel(int x, int y, int pixel)
 {	
-	(void)pixel;
-	int	i = y * d.env.size_x + x;
-
+	(void)x;
+	(void)y;
+	// (void)pixel;
+	// int	i = y * d.env.size_x + x * 3;
+	printf("%u\n", pixel);
 	// d.img[i] = ((pixel >> 24) & 0xFF);
 	// d.img[i + 1] = ((pixel >> 16) & 0xFF);
 	// d.img[i + 2] = ((pixel >> 8) & 0xFF);
-	d.img[i] = (unsigned char)255;
-	d.img[i + 1] = (unsigned char)0;
-	d.img[i + 2] = (unsigned char)0;
-	// d.img[i] = pixel;
-	// printf("%u %u %u\n", d.img[i], d.img[i + 1], d.img[i + 2]);
+	// d.img[x][y][0] = (int)((pixel >> 24) & 0xFF);
+	// d.img[x][y][1] = (int)((pixel >> 16) & 0xFF);
+	// d.img[x][y][2]= (int)((pixel >> 8) & 0xFF);
 }
 
 void	ray_trace()
@@ -52,9 +52,9 @@ void	ray_trace()
 	x = -1;
 	y = -1;
 	printf("%u %u\n", d.env.size_x, d.env.size_y);
-	while ((uint32_t)++x < d.env.size_x)
+	while (++y < d.env.size_y)
 	{
-		while ((uint32_t)++y < d.env.size_y)
+		while (++x < d.env.size_x)
 		{
 			ray = make_ray(&d.cam, vec2_init(((2.0f * x) / d.env.size_x)
 						- 1.0f, ((-2.0f * y) / d.env.size_y) + 1.0f));
@@ -66,54 +66,89 @@ void	ray_trace()
 		}
 		y = -1;
 	}
-	// expose_img(d);
+
+	// for (int i = 0; i < (int)d.env.size_x * (int)d.env.size_y * 3; i++)
+	// {
+	// 	printf("%d ", d.img[i]);
+	// 	if (i % (int)d.env.size_x == 0)
+	// 		printf("\n");
+	// }
 }
+
+// static char *ppm_formatting(int *color, int *line_len, int *count, char *write_pos)
+// {
+// 	if (*color < 0)
+// 		*color = 0;
+// 	int digitsNum = snprintf(NULL, 0, "%d", *color); // Calculate the number of digits
+// 	if (*line_len + digitsNum + 1 >= 70) {
+// 		*write_pos++ = '\n'; // Add newline
+// 		*line_len = 0;
+// 		if (*count == (int)d.env.size_x * 3)
+// 			*count = 0;
+// 	} else if (*line_len != 0) {
+// 		*write_pos++ = ' '; // Add space between color components
+// 		*line_len += 1;
+// 	}
+// 	*line_len += digitsNum;
+// 	return (write_pos);
+// }
 
 char	*canvas_to_ppm()
 {
-    int line_len = 0;
-	char	*tmp1, *tmp2, *tmp3, *freer;
-	tmp1 = ft_strjoin("P3\n", ft_itoa(d.env.size_x));
-	tmp2 = ft_strjoin(" ", ft_itoa(d.env.size_y));
-	tmp3 = ft_strjoin(tmp1, tmp2);
-    char* ppm = ft_strjoin(tmp3, "\n255\n");
-	free(tmp1);
-	free(tmp2);
-	free(tmp3);
-	
-    for (int i = 0; d.img[i]; i++)
-    {
-		int color = (int)(d.img[i]);
-		if (color < 0)
-			color = 0;
-		int digitsNum = numDigits(color);
-		printf("color: %d | line_len: %d\n", d.img[i], line_len);
-		if (line_len + digitsNum + 1 >= 70)
-		{
-			freer = ppm;
-			ppm = ft_strjoin(ppm, "\n");
-			free(freer);
-			line_len = 0;
-		}
-		else if (line_len != 0)
-		{
-			freer = ppm;
-			ppm = ft_strjoin(ppm, " ");
-			free(freer);
-			line_len++;
-		}
+    int line_len = 0, count = 0;
+    char *ppm = (char *)malloc(sizeof(char) * d.env.size_x * d.env.size_y * 3 * 4 + 20);
+    if (!ppm) {
+    	ft_error(9, "while attempting to save to PPM");
+	}
+	// bzero(ppm, sizeof(char) * (int)d.env.size_x * (int)d.env.size_y * 3 * 4 + 20);
 
-		freer = ppm;
-		ppm = ft_strjoin(ppm, ft_itoa(color));
-		free(freer);
-		line_len += digitsNum;
+    // Construct the PPM header
+    sprintf(ppm, "P3\n%d %d\n255\n", d.env.size_x, d.env.size_y);
 
-		// if (i % d.env.size_x == 0 && line_len != 0)
-		// {
-		// 	freer = ppm;
-		// 	ppm = ft_strjoin(ppm, "\n");
-		// 	free(freer);
-		// }
+    // Pointer to the position to write in ppm
+    char *write_pos = ppm + strlen(ppm);
+
+	// for (int x = 0; x < d.env.size_x; x++)
+	// {
+	// 	for (int y = 0; y < d.env.size_y; y++)
+	// 	{
+	// 		int	i = (x * d.env.size_y + y) * 3;
+
+	// 		int r = d.img[i];
+	// 		write_pos = ppm_formatting(&r, &line_len, &count, write_pos);
+	// 		write_pos += sprintf(write_pos, "%d", r);
+	// 		count++;
+
+	// 		int g = d.img[i + 1];
+	// 		write_pos = ppm_formatting(&g, &line_len, &count, write_pos);
+	// 		write_pos += sprintf(write_pos, "%d", g);
+	// 		count++;
+
+	// 		int b = d.img[i + 2];
+	// 		write_pos = ppm_formatting(&b, &line_len, &count, write_pos);
+	// 		write_pos += sprintf(write_pos, "%d", b);
+	// 		count++;
+	// 	}
+	// }
+    for (int i = 0; i < (int)d.env.size_x * (int)d.env.size_y * 3; i++) {
+        int color = d.img[i];
+        if (color < 0)
+            color = 0;
+        int digitsNum = snprintf(NULL, 0, "%d", color); // Calculate the number of digits
+        if (line_len + digitsNum + 1 >= 70 || count == (int)d.env.size_x * 3) {
+            *write_pos++ = '\n'; // Add newline
+            line_len = 0;
+            if (count == (int)d.env.size_x * 3)
+                count = 0;
+        } else if (line_len != 0) {
+            *write_pos++ = ' '; // Add space between color components
+            line_len++;
+        }
+
+        // Write color to write_pos
+        write_pos += sprintf(write_pos, "%d", color);
+        line_len += digitsNum;
+        count++;
     }
-    return (ppm);
+    return ppm;
 }

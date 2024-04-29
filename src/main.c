@@ -8,10 +8,10 @@ static void	d_init(int width, int height)
 	d.env.size_y = height;
 	// d->env.mlx = mlx_init(d->env.size_x, d->env.size_y, "miniRT", true);
 	// d->img = mlx_new_image(d->env.mlx, d->env.size_x, d->env.size_y);
-	d.img = malloc(sizeof(int) * width * height * 3);
+	d.img = malloc(sizeof(unsigned int) * width * height * 3);
 	if (!d.img)
 		ft_error(0, "Image init failure\n");
-	// ft_bzero(d.img, sizeof(int) * width * height * 3);
+	ft_bzero(d.img, sizeof(unsigned int) * width * height * 3);
 	
 	d.shapes.cylindres = NULL;
 	d.shapes.spheres = NULL;
@@ -132,6 +132,18 @@ static void	d_init(int width, int height)
 // 	return (0);
 // }
 
+static void	save_to_img(char *filename)
+{
+	printf("Saving image as PPM file...\n");
+	int	fd = open(filename, O_WRONLY | O_APPEND | O_CREAT | O_TRUNC, 0644);
+	char *ppm = canvas_to_ppm();
+	ft_putstr_fd(ppm, fd);
+	free(ppm);
+	close(fd);
+	printf("Success!\n");
+	clean_up();
+}
+
 /* Handler for window-repaint event. Called back when the window first appears and
    whenever the window needs to be re-painted. */
 void display() 
@@ -187,19 +199,15 @@ int	main(int ac, char **av)
 {
 	(void)ac;
 	GLuint texid;
-	int fd;
 
 	// raytracer init
-	d_init(1280, 720);
+	d_init(300, 300);
 	load_data(av[1]);
     ray_trace();
 
 	if (av[2] && av[3] && ft_strncmp(av[2], "-S", 2) == 0)
 	{
-		fd = open(av[3], O_WRONLY | O_APPEND | O_CREAT, 0644);
-		ft_putstr_fd(canvas_to_ppm(), fd);
-		close(fd);
-		clean_up();
+		save_to_img(av[3]);
 		return (0);
 	}
 
