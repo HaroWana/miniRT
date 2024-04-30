@@ -8,10 +8,12 @@ static void	d_init(int width, int height)
 	d.env.size_y = height;
 	// d->env.mlx = mlx_init(d->env.size_x, d->env.size_y, "miniRT", true);
 	// d->img = mlx_new_image(d->env.mlx, d->env.size_x, d->env.size_y);
-	d.img = malloc(sizeof(unsigned int) * width * height * 3);
+	d.img = malloc(sizeof(unsigned int *) * height);
 	if (!d.img)
 		ft_error(0, "Image init failure\n");
-	ft_bzero(d.img, sizeof(unsigned int) * width * height * 3);
+	ft_bzero(d.img, sizeof(unsigned int) * height);
+	for (int i = 0; i < height; i++)
+		d.img[i] = malloc(sizeof(unsigned int) * width);
 	
 	d.shapes.cylindres = NULL;
 	d.shapes.spheres = NULL;

@@ -27,13 +27,12 @@ static int	light_calc(t_data *d, t_inter inter)
 	return (color);
 }
 
-static void	drawPixel(int x, int y, int pixel)
+static void	drawPixel(int x, int y, unsigned int pixel)
 {	
-	(void)x;
-	(void)y;
+	d.img[y][x] = pixel;
 	// (void)pixel;
 	// int	i = y * d.env.size_x + x * 3;
-	printf("%u\n", pixel);
+	// printf("%u\n", pixel);
 	// d.img[i] = ((pixel >> 24) & 0xFF);
 	// d.img[i + 1] = ((pixel >> 16) & 0xFF);
 	// d.img[i + 2] = ((pixel >> 8) & 0xFF);
