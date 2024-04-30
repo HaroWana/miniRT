@@ -35,7 +35,7 @@ int	cam(char **buf)
 	}
 	cam.fov = (ft_atoi(buf[3])) * (M_PI / 360);
 
-	cam_init(&cam, d.env.size_y / d.env.size_x);
+	cam_init(&cam, d.env.height / d.env.width);
 	d.cam = cam;
 	d.cam_count++;
 	

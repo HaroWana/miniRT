@@ -19,14 +19,16 @@ all: ${NAME}
 
 ${NAME}: ${OBJ}
 	${MAKE} -sC ./libft
+	${MAKE} -sC ./MLX42
 	mv ./libft/libft.a ./
-	${CC} $(CFLAGS) ${OBJ} libft.a -lglfw -lGL -lglut -Iinclude -ldl -pthread -L/Users/${USER}/.brew/opt/glfw/lib/ -lm -o ${NAME}
+	mv ./MLX42/libmlx42.a ./
+	${CC} $(CFLAGS) ${OBJ} libft.a libmlx42.a -lglfw -Iinclude -ldl -pthread -L/Users/${USER}/.brew/opt/glfw/lib/ -lm -o ${NAME}
 
 %.o: %.c
-	$(CC) $(CFLAGS)  -I./inc -I/Users/${USER}/.brew/opt/glfw/include -I/Users/${USER}/goinfre/.brew/opt/glfw/include -c $< -o $@
+	$(CC) $(CFLAGS) -I./MLX42/include/MLX42 -I./inc -I/Users/${USER}/.brew/opt/glfw/include -I/Users/${USER}/goinfre/.brew/opt/glfw/include -c $< -o $@
 
 clean:
-	${RM} ${OBJ} libft.a
+	${RM} ${OBJ} libmlx42.a libft.a
 	${MAKE} clean -sC ./libft
 
 fclean: clean

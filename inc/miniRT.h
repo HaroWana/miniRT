@@ -8,6 +8,8 @@
 // # include <GLFW/glfw3.h>
 # include <GL/glut.h>
 
+# include "../MLX42/include/MLX42/MLX42.h"
+
 # include <math.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -100,7 +102,7 @@ void	clean_up();
 // void	expose_img(t_data *d);
 // void	mlx_loops(t_data *d);
 
-int		get_color(char **split);
+unsigned int		get_color(char **split);
 int		color_scale(int colour, float f);
 int		color_prod(int c1, int c2);
 int		color_add(int c1, int c2);
@@ -112,5 +114,9 @@ bool	hit_pl(t_inter *inter, t_elem *elem);
 
 
 char	*canvas_to_ppm();
+
+void	keyhook(mlx_key_data_t keydata, void *param);
+void	expose_img(t_data *d);
+void	mlx_loops(t_data *d);
 
 #endif

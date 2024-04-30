@@ -4,7 +4,8 @@
 typedef struct s_data
 {
 	int			fd;
-	unsigned int	**img;
+	unsigned int	**img_data;
+	mlx_image_t	*img;
 	t_cam		cam;
 	t_shape		shapes;
 	t_amb		amb;
