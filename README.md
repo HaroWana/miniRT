@@ -30,7 +30,6 @@ miniRT is a school project aimed at generating images using the Raytracing proto
 ## Usage
 - The program takes a scene description file as input with the .rt extension.
 - Each element in the scene can be separated by one or more line breaks and spaces.
-- Elements must be defined in a strict order as specified in the subject.
 - Misconfigurations in the scene file will cause the program to exit with an error message.
 
 ## Example
