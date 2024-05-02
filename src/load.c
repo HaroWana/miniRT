@@ -6,7 +6,7 @@ static void	load_line(char *buf)
 {
 	char	**split;
 	int		ret = 1;
-	split = ft_split_words(buf);
+	split = split_words(buf);
 
 	if (ft_strncmp(split[0], "A", 1) == 0 && ft_strlen(split[0]) == 1)
 		ret = amb(split);

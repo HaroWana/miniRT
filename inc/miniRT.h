@@ -1,15 +1,7 @@
 #ifndef MINIRT_H
 # define MINIRT_H
 
-# define STDERR 2
-
-// # include <GL/gl.h>
-// # include <GL/glu.h>
-// # include <GLFW/glfw3.h>
-# include <GL/glut.h>
-
 # include "../MLX42/include/MLX42/MLX42.h"
-
 # include <math.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -33,9 +25,22 @@
 # include "data.h"
 # include "image.h"
 
+/* Cool little trick to easily print binary */
+#define BYTE_TO_BINARY_PATTERN "%c%c%c%c%c%c%c%c"
+#define BYTE_TO_BINARY(byte) \
+	((byte) & 0x80 ? '1' : '0'), \
+	((byte) & 0x40 ? '1' : '0'), \
+	((byte) & 0x20 ? '1' : '0'), \
+	((byte) & 0x10 ? '1' : '0'), \
+	((byte) & 0x08 ? '1' : '0'), \
+	((byte) & 0x04 ? '1' : '0'), \
+	((byte) & 0x02 ? '1' : '0'), \
+	((byte) & 0x01 ? '1' : '0')
+
 // main.c
 int		main(int ac, char **av);
 void	ft_error(int ret, char *str);
+void	keyhook(mlx_key_data_t keydata, void *param);
 
 // check.c
 bool	rgbinrange(int nb);
@@ -87,22 +92,21 @@ int		numDigits(int num);
 // utils2.c
 
 float	sqr(float f);
+int		get_color(char **split);
 
-// ft_split_words.c
+// split_words.c
 
-char	**ft_split_words(char const *s);
+char	**split_words(char const *s);
 
 // exit.c
-int		close_hook(t_data *d, int code);
 void	clean_up();
 
-
 // hooks.c
-// void	keyhook(mlx_key_data_t keydata, void *param);
-// void	expose_img(t_data *d);
-// void	mlx_loops(t_data *d);
+void	keyhook(mlx_key_data_t keydata, void *param);
+void	expose_img(t_data *d);
+void	mlx_loops(t_data *d);
 
-unsigned int		get_color(char **split);
+int		get_color(char **split);
 int		color_scale(int colour, float f);
 int		color_prod(int c1, int c2);
 int		color_add(int c1, int c2);
@@ -111,12 +115,5 @@ int		color_comp(t_lum *light, t_inter hit);
 bool	hit_sp(t_inter *inter, t_elem *elem);
 bool	hit_cy(t_inter *inter, t_elem *elem);
 bool	hit_pl(t_inter *inter, t_elem *elem);
-
-
-char	*canvas_to_ppm();
-
-void	keyhook(mlx_key_data_t keydata, void *param);
-void	expose_img(t_data *d);
-void	mlx_loops(t_data *d);
 
 #endif

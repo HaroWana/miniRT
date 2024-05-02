@@ -51,8 +51,7 @@ static char	**calloc_cpy_word(char const *s, char **split,
 	return (split);
 }
 
-// Splits the words in a string separated by spaces and tabs
-char	**ft_split_words(char const *s)
+char	**split_words(char const *s)
 {
 	size_t	words;
 	size_t	s_len;

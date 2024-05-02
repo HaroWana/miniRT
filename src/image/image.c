@@ -1,6 +1,6 @@
 #include "miniRT.h"
 
-extern t_data	d;
+extern	t_data	d;
 
 static bool	in_shadow(t_data *d, t_inter inter, t_vec light)
 {
@@ -16,9 +16,9 @@ static bool	in_shadow(t_data *d, t_inter inter, t_vec light)
 	return (shapes_intersect(&d->shapes, &shadow));
 }
 
-static int	light_calc(t_data *d, t_inter inter)
+static uint32_t	light_calc(t_data *d, t_inter inter)
 {
-	int	color;
+	uint32_t	color;
 	bool		visible;
 
 	color = color_prod(inter.rgb, color_scale(d->amb.rgb, d->amb.ratio));
@@ -27,38 +27,36 @@ static int	light_calc(t_data *d, t_inter inter)
 	return (color);
 }
 
-static void	drawPixel(int x, int y, unsigned int pixel)
+static void	putPixel(int x, int y, uint32_t pixel)
 {	
 	mlx_put_pixel(d.img, x, y, pixel);
-	d.img_data[y][x] = pixel;
+	d.imgData[y][x] = pixel;
 }
 
-void	ray_trace()
+void	ray_trace(t_data *d)
 {
+	int			x;
+	int			y;
 	t_inter		inter;
 	t_ray		ray;
 
-	printf("%u %u\n", d.env.width, d.env.height);
-	for (int y = 0; y < d.env.height; y++)
+	x = -1;
+	y = -1;
+	while ((uint32_t)++x < d->img->width)
 	{
-		for (int x = 0; x < d.env.width; x++)
+		while ((uint32_t)++y < d->img->height)
 		{
-			ray = make_ray(&d.cam, vec2_init(((2.0f * x) / d.env.width)
-						- 1.0f, ((-2.0f * y) / d.env.height) + 1.0f));
+			ray = make_ray(&d->cam, vec2_init(((2.0f * x) / d->img->width)
+						- 1.0f, ((-2.0f * y) / d->img->height) + 1.0f));
 			inter = inter_cpy_ray(&ray);
-			if (shapes_intersect(&d.shapes, &inter))
-				drawPixel(x, y, light_calc(&d, inter));
+			if (shapes_intersect(&d->shapes, &inter))
+				putPixel(x, y, light_calc(d, inter));
 			else
-				drawPixel(x, y, 0);
+				putPixel(x, y, 0);
 		}
+		y = -1;
 	}
-
-	// for (int i = 0; i < (int)d.env.width * (int)d.env.height * 3; i++)
-	// {
-	// 	printf("%d ", d.img[i]);
-	// 	if (i % (int)d.env.width == 0)
-	// 		printf("\n");
-	// }
+	expose_img(d);
 }
 
 static char *ppm_formatting(int *color, int *line_len, int *count, char *write_pos)
@@ -89,7 +87,7 @@ char	*canvas_to_ppm()
 	// bzero(ppm, sizeof(char) * (int)d.env.width * (int)d.env.height * 3 * 4 + 20);
 
     // Construct the PPM header
-    sprintf(ppm, "P3\n%d %d\n255\n", d.env.width, d.env.height);
+    sprintf(ppm, "P3\n%d %d\n255\n", (int)d.env.width, (int)d.env.height);
 
     // Pointer to the position to write in ppm
     char *write_pos = ppm + strlen(ppm);
@@ -100,17 +98,17 @@ char	*canvas_to_ppm()
 		{
 			// int	i = (x * d.env.height + y) * 3;
 
-			int r = (d.img_data[y][x] >> 24) & 0xFF;
+			int r = (d.imgData[y][x] >> 24) & 0xFF;
 			write_pos = ppm_formatting(&r, &line_len, &count, write_pos);
 			write_pos += sprintf(write_pos, "%u", r);
 			count++;
 
-			int g = (d.img_data[y][x] >> 16) & 0xFF;
+			int g = (d.imgData[y][x] >> 16) & 0xFF;
 			write_pos = ppm_formatting(&g, &line_len, &count, write_pos);
 			write_pos += sprintf(write_pos, "%u", g);
 			count++;
 
-			int b = (d.img_data[y][x] >> 8) & 0xFF;
+			int b = (d.imgData[y][x] >> 8) & 0xFF;
 			write_pos = ppm_formatting(&b, &line_len, &count, write_pos);
 			write_pos += sprintf(write_pos, "%u", b);
 			count++;

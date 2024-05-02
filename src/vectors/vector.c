@@ -1,15 +1,5 @@
 #include "miniRT.h"
 
-t_vec	vec_init(void)
-{
-	t_vec	vec;
-
-	vec.x = 0.0f;
-	vec.y = 1.0f;
-	vec.z = 0.0f;
-	return (vec);
-}
-
 t_vec	vec_cpy(t_vec *v1)
 {
 	t_vec	vec;

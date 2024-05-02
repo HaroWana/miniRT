@@ -12,7 +12,7 @@ bool	ft_isint(char *str)
 	int	i;
 
 	i = 0;
-	while (i < (int)ft_strlen(str) && str[i] != '\n' && str[i] != '\r')
+	while (i < (int)ft_strlen(str) && str[i] != '\n' && str[i] != 'r')
 	{
 		if (!ft_isdigit(str[i]))
 			return (false);
@@ -51,7 +51,6 @@ t_elem	*elem_init(void)
 	return (elem);
 }
 
-extern	t_data	d;
 t_vec	get_coor(char **split)
 {
 	t_vec	coor;

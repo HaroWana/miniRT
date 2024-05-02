@@ -4,9 +4,9 @@
 typedef struct s_env
 {
 	void		*mlx;
-	// GLFWwindow	*win;
-	int	width;
-	int	height;
+	void		*win;
+	float		width;
+	float		height;
 }				t_env;
 
 #endif

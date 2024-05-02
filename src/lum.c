@@ -42,3 +42,4 @@ int	lum(char **buf)
 	free_all(tmp_pos, tmp_color, NULL, NULL);
 	return (0);
 }
+

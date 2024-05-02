@@ -15,6 +15,16 @@ t_inter	inter_init(void)
 	return (inter);
 }
 
+t_inter	inter_cpy(t_inter *inter1)
+{
+	t_inter	inter;
+
+	ray_eq(&inter.ray, &inter1->ray);
+	inter.t = inter1->t;
+	inter.rgb = inter1->rgb;
+	return (inter);
+}
+
 t_inter	inter_cpy_ray(t_ray *ray1)
 {
 	t_inter	inter;
@@ -23,4 +33,11 @@ t_inter	inter_cpy_ray(t_ray *ray1)
 	inter.t = ray1->t_max;
 	ft_bzero(&inter.pos, 0);
 	return (inter);
+}
+
+void	inter_eq(t_inter *inter1, t_inter *inter2)
+{
+	*inter1 = inter_cpy_ray(&inter2->ray);
+	inter1->t = inter2->t;
+	inter1->rgb = inter2->rgb;
 }

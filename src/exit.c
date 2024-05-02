@@ -27,8 +27,8 @@ void	clean_up()
 		free(tmp);
 		tmp = NULL;
 	}
-	// if (d.env.mlx)
-	// 	mlx_terminate(d.env.mlx);
+	if (d.env.mlx)
+		mlx_terminate(d.env.mlx);
 }
 
 static void	free_strs(char **tmp, char **tmp_pos, char **tmp_axe,
@@ -77,13 +77,4 @@ void	free_all(char **tmp, char **tmp_pos, char **tmp_axe, char **tmpcolor)
 		free(tmp);
 		tmp = NULL;
 	}
-}
-
-int	close_hook(t_data *d, int code) // necessary ?
-{
-	(void)d;
-	if (code == 0)
-		exit(EXIT_SUCCESS);
-	else
-		exit (EXIT_FAILURE);
 }

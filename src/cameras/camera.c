@@ -23,7 +23,10 @@ int	cam(char **buf)
 	// Verifying and assigning Camera direction vector
 	tmp_axe = ft_split(buf[2], ',');
 	if (!vectinrange(tmp_axe))
+	{
+		free_all(tmp_pos, tmp_axe, NULL, NULL);
 		return (8);
+	}
 	cam.forward = get_coor(tmp_axe);
 	normalize(&cam.forward);
 

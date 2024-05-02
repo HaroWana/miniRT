@@ -15,10 +15,8 @@ typedef struct s_vec2
 }				t_vec2;
 
 //-----Instanciation-----//
-t_vec	vec_init(void);
 t_vec	vec_cpy(t_vec *v1);
 t_vec	vec_init_fs(float x, float y, float z);
-t_vec	vec_init_f(float f);
 
 //-----Manipulations-----//
 float	length(t_vec *vec);

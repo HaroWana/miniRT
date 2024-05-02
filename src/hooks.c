@@ -1,14 +1,15 @@
 #include "miniRT.h"
-// d handling is to be reworked globally
+
 void	keyhook(mlx_key_data_t keydata, void *param)
 {
-	t_data	*d;
+	// t_data	*d;
 
-	d = (t_data *)param;
+	// d = (t_data *)param;
+	(void)param;
 	if (keydata.key == MLX_KEY_ESCAPE)
 	{
 		clean_up();
-		close_hook(d, 0);
+		exit(0);
 	}
 }
 
@@ -17,7 +18,7 @@ void	expose_img(t_data *d)
 	if (mlx_image_to_window(d->env.mlx, d->img, 0, 0) < 0)
 	{
 		mlx_close_window(d->env.mlx);
-		ft_error(0, "Impossible to create image");
+		ft_error(0, "Cannot generate image");
 	}
 }
 

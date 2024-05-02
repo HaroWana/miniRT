@@ -4,7 +4,7 @@
 typedef struct s_data
 {
 	int			fd;
-	unsigned int	**img_data;
+	uint32_t	**imgData;
 	mlx_image_t	*img;
 	t_cam		cam;
 	t_shape		shapes;
@@ -14,8 +14,6 @@ typedef struct s_data
 	int			cam_count;
 	int			light_count;
 	int			alight_count;
-	char		c1;
-	char		c2;
 }				t_data;
 
 #endif
