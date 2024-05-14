@@ -27,54 +27,57 @@ void	clean_up()
 		free(tmp);
 		tmp = NULL;
 	}
-	if (d.env.mlx)
-		mlx_terminate(d.env.mlx);
 }
 
-static void	free_strs(char **tmp, char **tmp_pos, char **tmp_axe,
-	char **tmpcolor)
+void	free_2D_arr(char **arr)
 {
-	int	i;
+	size_t	i;
 
+	if (!arr || !*arr)
+		return ;
 	i = 0;
+	while (arr[i])
+	{
+		free(arr[i]);
+		arr[i] = NULL;
+		i++;
+	}
+	free(arr);
+	arr = NULL;
+}
+
+void	free_2D_arrs(char **tmp, char **tmp_pos, char **tmp_axe, char **tmpcolor)
+{
+	int	i = 0;	
 	if (tmp)
+	{
 		while (tmp[i])
 			free (tmp[i++]);
+		free(tmp);
+		tmp = NULL;
+	}
 	i = 0;
-	if (tmp_pos)
-		while (tmp_pos[i])
-			free (tmp_pos[i++]);
-	i = 0;
-	if (tmp_axe)
-		while (tmp_axe[i])
-			free (tmp_axe[i++]);
-	i = 0;
-	if (tmpcolor)
-		while (tmpcolor[i])
-			free(tmpcolor[i++]);
-}
-
-void	free_all(char **tmp, char **tmp_pos, char **tmp_axe, char **tmpcolor)
-{
-	free_strs(tmp, tmp_pos, tmp_axe, tmpcolor);
 	if (tmp_pos)
 	{
+		while (tmp_pos[i])
+			free (tmp_pos[i++]);
 		free(tmp_pos);
 		tmp_pos = NULL;
 	}
+	i = 0;
 	if (tmp_axe)
 	{
+		while (tmp_axe[i])
+			free (tmp_axe[i++]);
 		free(tmp_axe);
 		tmp_axe = NULL;
 	}
+	i = 0;
 	if (tmpcolor)
 	{
+		while (tmpcolor[i])
+			free (tmpcolor[i++]);
 		free(tmpcolor);
 		tmpcolor = NULL;
-	}
-	if (tmp)
-	{
-		free(tmp);
-		tmp = NULL;
 	}
 }

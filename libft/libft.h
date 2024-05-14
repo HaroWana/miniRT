@@ -76,7 +76,6 @@ int		ft_printf(const char *str, ...);
 int		ft_itohex(unsigned int num, const char format);
 int		ft_putint_unsigned(unsigned int n);
 char	*get_next_line(int fd);
-void	ft_arr_freer(char **arr);
 void	ft_putstr(char *str);
 char	*ft_strstr(const char *haystack, const char *needle);
 double	ft_atof(const char *str);

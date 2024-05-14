@@ -1,7 +1,9 @@
 #ifndef MINIRT_H
 # define MINIRT_H
 
-# include "../MLX42/include/MLX42/MLX42.h"
+# include <GL/gl.h>
+# include <GL/glu.h>
+# include <GL/glut.h>
 # include <math.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -40,7 +42,6 @@
 // main.c
 int		main(int ac, char **av);
 void	ft_error(int ret, char *str);
-void	keyhook(mlx_key_data_t keydata, void *param);
 
 // check.c
 bool	rgbinrange(int nb);
@@ -76,9 +77,6 @@ int	pl(char **split);
 // cyl.c
 int	cyl(char **split);
 
-// cmpt.c
-void	free_all(char **tmp, char **tmp_pos, char **tmp_axe, char **tmpcolor);
-
 // utils.c
 bool	ft_isint(char *str);
 bool	ft_isrgb(int color);
@@ -90,21 +88,17 @@ t_vec	get_coor(char **split);
 int		numDigits(int num);
 
 // utils2.c
-
 float	sqr(float f);
 int		get_color(char **split);
 
 // split_words.c
-
 char	**split_words(char const *s);
 
 // exit.c
 void	clean_up();
+void	free_2D_arr(char **arr);
+void	free_2D_arrs(char **tmp, char **tmp_pos, char **tmp_axe, char **tmpcolor);
 
-// hooks.c
-void	keyhook(mlx_key_data_t keydata, void *param);
-void	expose_img(t_data *d);
-void	mlx_loops(t_data *d);
 
 int		get_color(char **split);
 int		color_scale(int colour, float f);

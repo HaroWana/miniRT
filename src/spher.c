@@ -18,7 +18,7 @@ int	sp(char **buf)
 	tmp_pos = ft_split(buf[1], ',');
 	if (!valid_pos(tmp_pos))
 	{
-		ft_arr_freer(tmp_pos);
+		free_2D_arr(tmp_pos);
 		return (5);
 	}
 	sp->pos = get_coor(tmp_pos);
@@ -26,7 +26,7 @@ int	sp(char **buf)
 	// Verifying and assigning Sphere radius
 	if (!valid_radius(buf[2]))
 	{
-		ft_arr_freer(tmp_pos);
+		free_2D_arr(tmp_pos);
 		return (6);
 	}
 	sp->radius = atof(buf[2]) / 2;
@@ -35,12 +35,12 @@ int	sp(char **buf)
 	tmp_color = ft_split(buf[3], ',');
 	if (!valid_rgb(tmp_color))
 	{
-		free_all(tmp_pos, tmp_color, NULL, NULL);
+		free_2D_arrs(tmp_pos, tmp_color, NULL, NULL);
 		return (4);
 	}
 	sp->rgb = get_color(tmp_color);	
 
-	free_all(tmp_pos, tmp_color, NULL, NULL);
+	free_2D_arrs(tmp_pos, tmp_color, NULL, NULL);
 	shapes_addback(&d.shapes.spheres, sp, &d.shapes.sphere_nb);
 	return (0);
 }

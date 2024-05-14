@@ -21,7 +21,7 @@ static void	load_line(char *buf)
 	else if (ft_strncmp(split[0], "cy", 2) == 0 && ft_strlen(split[0]) == 2)
 		ret = cyl(split);
 	
-	ft_arr_freer(split);
+	free_2D_arr(split);
 	if (ret)
 	{
 		close(d.fd);

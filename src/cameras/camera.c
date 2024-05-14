@@ -15,7 +15,7 @@ int	cam(char **buf)
 	tmp_pos = ft_split(buf[1], ',');
 	if (!valid_pos(tmp_pos))
 	{
-		ft_arr_freer(tmp_pos);
+		free_2D_arr(tmp_pos);
 		return (5);
 	}
 	cam.pos = get_coor(tmp_pos);
@@ -24,7 +24,7 @@ int	cam(char **buf)
 	tmp_axe = ft_split(buf[2], ',');
 	if (!vectinrange(tmp_axe))
 	{
-		free_all(tmp_pos, tmp_axe, NULL, NULL);
+		free_2D_arrs(tmp_pos, tmp_axe, NULL, NULL);
 		return (8);
 	}
 	cam.forward = get_coor(tmp_axe);
@@ -33,7 +33,7 @@ int	cam(char **buf)
 	// Verifying and assigning Camera Field-Of-View
 	if (!fovinrange(ft_atoi(buf[3])))
 	{
-		free_all(tmp_pos, tmp_axe, NULL, NULL);
+		free_2D_arrs(tmp_pos, tmp_axe, NULL, NULL);
 		return (7);
 	}
 	cam.fov = (ft_atoi(buf[3])) * (M_PI / 360);
@@ -42,6 +42,6 @@ int	cam(char **buf)
 	d.cam = cam;
 	d.cam_count++;
 	
-	free_all(tmp_pos, tmp_axe, NULL, NULL);
+	free_2D_arrs(tmp_pos, tmp_axe, NULL, NULL);
 	return (0);
 }

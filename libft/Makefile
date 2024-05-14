@@ -19,7 +19,7 @@ ft_tolower.c ft_isalnum.c ft_itoa.c	ft_memset.c	ft_split.c ft_strlcat.c \
 ft_strnstr.c ft_toupper.c ft_islonglong.c ft_intlen.c ft_dectobin.c \
 ft_putstr.c ft_strstr.c ft_atof.c ft_isfloat.c \
 ft_printf.c ft_printf_utils.c ft_printf_utils2.c \
-ft_printf_utils3.c ft_printf_utils4.c get_next_line.c ft_arr_freer.c ft_isspace.c
+ft_printf_utils3.c ft_printf_utils4.c get_next_line.c ft_isspace.c
 
 SRCSB		=  ft_lstnew_bonus.c ft_lstadd_front_bonus.c ft_lstsize_bonus.c \
 ft_lstlast_bonus.c ft_lstadd_back_bonus.c ft_lstdelone_bonus.c \

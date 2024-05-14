@@ -19,13 +19,13 @@ int	amb(char **split)
 	tmp_color = ft_split(split[2], ',');
 	if (!valid_rgb(tmp_color))
 	{
-		ft_arr_freer(tmp_color);
+		free_2D_arr(tmp_color);
 		return (4);
 	}
 	a.rgb = get_color(tmp_color);	
 	
 	d.amb = a;
 	d.alight_count++;
-	ft_arr_freer(tmp_color);
+	free_2D_arr(tmp_color);
 	return (0);
 }
