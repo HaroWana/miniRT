@@ -31,7 +31,7 @@ t_inter	inter_cpy_ray(t_ray *ray1)
 
 	ray_eq(&inter.ray, ray1);
 	inter.t = ray1->t_max;
-	ft_bzero(&inter.pos, 0);
+	bzero(&inter.pos, 0);
 	return (inter);
 }
 

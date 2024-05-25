@@ -8,17 +8,17 @@ static void	load_line(char *buf)
 	int		ret = 1;
 	split = split_words(buf);
 
-	if (ft_strncmp(split[0], "A", 1) == 0 && ft_strlen(split[0]) == 1)
+	if (strncmp(split[0], "A", 1) == 0 && strlen(split[0]) == 1)
 		ret = amb(split);
-	else if (ft_strncmp(split[0], "C", 1) == 0 && ft_strlen(split[0]) == 1)
+	else if (strncmp(split[0], "C", 1) == 0 && strlen(split[0]) == 1)
 		ret = cam(split);
-	else if (ft_strncmp(split[0], "L", 1) == 0 && ft_strlen(split[0]) == 1)
+	else if (strncmp(split[0], "L", 1) == 0 && strlen(split[0]) == 1)
 		ret = lum(split);
-	else if (ft_strncmp(split[0], "sp", 2) == 0 && ft_strlen(split[0]) == 2)
+	else if (strncmp(split[0], "sp", 2) == 0 && strlen(split[0]) == 2)
 		ret = sp(split);
-	else if (ft_strncmp(split[0], "pl", 2) == 0 && ft_strlen(split[0]) == 2)
+	else if (strncmp(split[0], "pl", 2) == 0 && strlen(split[0]) == 2)
 		ret = pl(split);
-	else if (ft_strncmp(split[0], "cy", 2) == 0 && ft_strlen(split[0]) == 2)
+	else if (strncmp(split[0], "cy", 2) == 0 && strlen(split[0]) == 2)
 		ret = cyl(split);
 	
 	free_2D_arr(split);
@@ -33,7 +33,7 @@ void	load_data(char *filename)
 {
 	char	*buf;
 
-	if (ft_strncmp(filename + ft_strlen(filename) - 3, ".rt", 3) != 0)
+	if (strncmp(filename + strlen(filename) - 3, ".rt", 3) != 0)
 		ft_error(0, "This program requires a .rt scene file.");
 	d.fd = open(filename, O_RDONLY);
 	if (d.fd < 0)

@@ -103,7 +103,7 @@ int	main(int ac, char **av)
 
 	ray_trace(&d);
 
-	if (ac == 4 && ft_strncmp(av[2], "-S", 2) == 0)
+	if (ac == 4 && strncmp(av[2], "-S", 2) == 0)
 		save_to_img(av[3]); 
 	
 	GLuint	texid;
@@ -112,8 +112,6 @@ int	main(int ac, char **av)
 	glBindTexture(GL_TEXTURE_2D, texid); /* Binding of texture name */
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR); /* We will use linear interpolation for magnification filter */
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); /* We will use linear interpolation for minifying filter */
-	// glTexImage2D(GL_TEXTURE_2D, 0, ilGetInteger(IL_IMAGE_BPP), ilGetInteger(IL_IMAGE_WIDTH), ilGetInteger(IL_IMAGE_HEIGHT), 
-	// 0, ilGetInteger(IL_IMAGE_FORMAT), GL_UNSIGNED_BYTE, ilGetData()); /* Texture specification */
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, (GLsizei)d.env.width, (GLsizei)d.env.height, 0, GL_RGBA,  GL_UNSIGNED_INT_8_8_8_8_REV, d.imgData);
 
     /* Main loop */

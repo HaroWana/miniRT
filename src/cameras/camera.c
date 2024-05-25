@@ -31,12 +31,12 @@ int	cam(char **buf)
 	normalize(&cam.forward);
 
 	// Verifying and assigning Camera Field-Of-View
-	if (!fovinrange(ft_atoi(buf[3])))
+	if (!fovinrange(atoi(buf[3])))
 	{
 		free_2D_arrs(tmp_pos, tmp_axe, NULL, NULL);
 		return (7);
 	}
-	cam.fov = (ft_atoi(buf[3])) * (M_PI / 360);
+	cam.fov = (atoi(buf[3])) * (M_PI / 360);
 
 	cam_init(&cam, d.env.height / d.env.width);
 	d.cam = cam;

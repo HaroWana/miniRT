@@ -64,7 +64,7 @@ bool	valid_rgb(char **rgb)
 	
 	for (int i = 0; rgb[i]; i++)
 	{
-		if (!ft_isint(rgb[i]) || !ft_isrgb(ft_atoi(rgb[i])))
+		if (!ft_isint(rgb[i]) || !ft_isrgb(atoi(rgb[i])))
 			return (false);
 	}
 	return (true);

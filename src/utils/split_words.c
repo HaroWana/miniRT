@@ -37,9 +37,9 @@ static char	**calloc_cpy_word(char const *s, char **split,
 		{
 			if (word_len > 0)
 			{
-				split[i_split] = (char *)ft_calloc(word_len + 1, sizeof(char));
+				split[i_split] = (char *)calloc(word_len + 1, sizeof(char));
 				if (split[i_split])
-					ft_strlcpy(split[i_split], &s[i - word_len], word_len + 1);
+					strlcpy(split[i_split], &s[i - word_len], word_len + 1);
 				word_len = 0;
 				i_split++;
 			}
@@ -59,9 +59,9 @@ char	**split_words(char const *s)
 
 	if (!s)
 		return (NULL);
-	s_len = ft_strlen(s);
+	s_len = strlen(s);
 	words = count_words(s);
-	split = (char **)ft_calloc(sizeof(char *), words + 1);
+	split = (char **)calloc(sizeof(char *), words + 1);
 	if (!split)
 		return (NULL);
 	split = calloc_cpy_word(s, split, s_len);

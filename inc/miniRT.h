@@ -10,11 +10,11 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <string.h>
+#include <bsd/string.h>
 # include <errno.h>
 # include <stdarg.h>
 # include <stdbool.h>
 # include <sys/types.h>
-# include "../libft/libft.h"
 # include <stdint.h>
 
 # include "vector.h"
@@ -80,16 +80,19 @@ int	cyl(char **split);
 // utils.c
 bool	ft_isint(char *str);
 bool	ft_isrgb(int color);
+int		ft_isdigit(int c);
 float	sqr(float f);
 bool	ft_isfloat(const char *str);
 void	shapes_addback(t_elem **lst, t_elem *new, int *qty);
 t_elem	*elem_init(void);
 t_vec	get_coor(char **split);
 int		numDigits(int num);
-
-// utils2.c
+char	**ft_split(char const *s, char c);
 float	sqr(float f);
 int		get_color(char **split);
+void	ft_putstr_fd(char *s, int fd);
+double	ft_atof(const char *str);
+char	*get_next_line(int fd);
 
 // split_words.c
 char	**split_words(char const *s);
