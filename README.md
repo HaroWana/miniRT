@@ -4,7 +4,7 @@
 miniRT is a school project aimed at generating images using the Raytracing protocol. The program creates computer-generated images that represent scenes from specific angles and positions, defined by simple geometric objects, and each with its own lighting system.
 
 ## Features
-- Use of miniLibX for window management.
+- Use of glut for window management.
 - Support for simple geometric objects: plane, sphere, and cylinder.
 - Ability to resize objects' unique properties.
 - Application of translation and rotation transformations to objects, lights, and cameras.
