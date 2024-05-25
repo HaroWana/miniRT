@@ -11,9 +11,9 @@ void display()
     /* Draw a quad */
 	glBegin(GL_QUADS);
 	glTexCoord2i(0, 0); glVertex2i(0, 0);
-	glTexCoord2i(0, 1); glVertex2i(0, d.env.height);
-	glTexCoord2i(1, 1); glVertex2i(d.env.width, d.env.height);
-	glTexCoord2i(1, 0); glVertex2i(d.env.height, 0);
+	glTexCoord2i(0, 1); glVertex2i(0, (GLint)d.env.height);
+	glTexCoord2i(1, 1); glVertex2i((GLint)d.env.width, (GLint)d.env.height);
+	glTexCoord2i(1, 0); glVertex2i((GLint)d.env.width, 0);
 	glEnd();
 
     glutSwapBuffers();
@@ -27,7 +27,7 @@ void reshape(GLsizei newwidth, GLsizei newheight)
     glViewport(0, 0, d.env.width=newwidth, d.env.height=newheight);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    glOrtho(0.0, d.env.width, d.env.height, 0.0, 0.0, 100.0);
+    glOrtho(0.0, (GLdouble)d.env.width, (GLdouble)d.env.height, 0.0, 0.0, 100.0);
     glMatrixMode(GL_MODELVIEW);
 
     glutPostRedisplay();
@@ -37,12 +37,12 @@ void reshape(GLsizei newwidth, GLsizei newheight)
 /* Initialize OpenGL Graphics */
 void initGL(int w, int h) 
 {
-	glViewport(0, 0, w, h); // use a screen size of WIDTH x HEIGHT
+	glViewport(0, 0, (GLsizei)w, (GLsizei)h); // use a screen size of WIDTH x HEIGHT
 	glEnable(GL_TEXTURE_2D);     // Enable 2D texturing
 
 	glMatrixMode(GL_PROJECTION);     // Make a simple 2D projection on the entire window
 	glLoadIdentity();
-	glOrtho(0.0, w, h, 0.0, 0.0, 100.0);
+	glOrtho(0.0, (GLdouble)w, (GLdouble)h, 0.0, 0.0, 100.0);
 
 	glMatrixMode(GL_MODELVIEW);    // Set the matrix mode to object modeling
 
@@ -57,8 +57,6 @@ static void	d_init(int width, int height)
 	d.env.height = height;
 
 	d.imgData = calloc(height * width, sizeof(uint32_t));
-	// for (int i = 0; i < height; i++)
-	// 	d.imgData[i] = calloc(width + 1, sizeof(uint32_t));
 	if (!d.imgData)
 		ft_error(0, "Image init failure\n");
 
@@ -95,13 +93,13 @@ int	main(int ac, char **av)
 
 	glutInit(&ac, av);            // Initialize GLUT
 	glutInitDisplayMode(GLUT_DOUBLE); // Enable double buffered mode
-	glutInitWindowSize(d.env.width, d.env.height);   // Set the window's initial width & height
+	glutInitWindowSize((int)d.env.width, (int)d.env.height);   // Set the window's initial width & height
 	glutCreateWindow(av[0]);      // Create window with the name of the executable
 	glutDisplayFunc(display);       // Register callback handler for window re-paint event
 	glutReshapeFunc(reshape);       // Register callback handler for window re-size event
 
     /* OpenGL 2D generic init */
-    initGL(d.env.width, d.env.height);
+    initGL((int)d.env.width, (int)d.env.height);
 
 	ray_trace(&d);
 
@@ -116,7 +114,7 @@ int	main(int ac, char **av)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); /* We will use linear interpolation for minifying filter */
 	// glTexImage2D(GL_TEXTURE_2D, 0, ilGetInteger(IL_IMAGE_BPP), ilGetInteger(IL_IMAGE_WIDTH), ilGetInteger(IL_IMAGE_HEIGHT), 
 	// 0, ilGetInteger(IL_IMAGE_FORMAT), GL_UNSIGNED_BYTE, ilGetData()); /* Texture specification */
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, d.env.width, d.env.height, 0, GL_RGBA,  GL_UNSIGNED_BYTE, d.imgData);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, (GLsizei)d.env.width, (GLsizei)d.env.height, 0, GL_RGBA,  GL_UNSIGNED_INT_8_8_8_8_REV, d.imgData);
 
     /* Main loop */
     glutMainLoop();

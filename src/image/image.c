@@ -45,9 +45,9 @@ void	ray_trace(t_data *d)
 
 	x = -1;
 	y = -1;
-	while ((uint32_t)++x < d->env.width)
+	while ((uint32_t)++x < (uint32_t)d->env.width)
 	{
-		while ((uint32_t)++y < d->env.height)
+		while ((uint32_t)++y < (uint32_t)d->env.height)
 		{
 			ray = make_ray(&d->cam, vec2_init(((2.0f * x) / d->env.width) - 1.0f,
 							((-2.0f * y) / d->env.height) + 1.0f));
